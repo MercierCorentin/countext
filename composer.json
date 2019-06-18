@@ -1,6 +1,8 @@
 {
     "type": "project",
     "license": "proprietary",
+    "name":"external-link-visit-counter-server",
+    "description": "An application to count visits to an external link on several websites",
     "require": {
         "php": "^7.1.3",
         "ext-ctype": "*",
