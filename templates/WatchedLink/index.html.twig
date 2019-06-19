@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Welcome on this External link visit couter
+{% endblock %}
+
+{% block body %}
+    {% foreach link in links %}
+    <article>
+        <h3>{{link.title}}</h3>
+        <p>Description</p>
+        <p>{{link.description}}</p>
+        <p>Source URL: {{ link.srcUrl }}</p>
+        <p>Destination URL: {{ link.dstUrl }}</p>
+    </article>
+    {% endforeach %}
+{% endblock %}
