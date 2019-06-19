@@ -39,9 +39,14 @@ class WatchedLink
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="WatchedLinkId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="WatchedLink")
      */
     private $visits;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $newUri;
 
     public function __construct()
     {
@@ -128,6 +133,18 @@ class WatchedLink
                 $visit->setWatchedLink(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNewUri(): ?string
+    {
+        return $this->newUri;
+    }
+
+    public function setNewUri(string $newUri): self
+    {
+        $this->newUri = $newUri;
 
         return $this;
     }
