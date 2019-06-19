@@ -26,7 +26,7 @@ class WatchedLink
     /**
      * @ORM\Column(type="text")
      */
-    private $detsUrl;
+    private $destUrl;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -70,14 +70,14 @@ class WatchedLink
         return $this;
     }
 
-    public function getDetsUrl(): ?string
+    public function getdestUrl(): ?string
     {
-        return $this->detsUrl;
+        return $this->destUrl;
     }
 
-    public function setDetsUrl(string $detsUrl): self
+    public function setdestUrl(string $destUrl): self
     {
-        $this->detsUrl = $detsUrl;
+        $this->destUrl = $destUrl;
 
         return $this;
     }
@@ -142,8 +142,13 @@ class WatchedLink
         return $this->newUri;
     }
 
-    public function setNewUri(string $newUri): self
+    public function setNewUri(): self
     {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $newUri = '';
+        for ($i = 0; $i < 10; $i++) {
+            $newUri = $characters[rand(0, strlen($characters))];
+        }
         $this->newUri = $newUri;
 
         return $this;

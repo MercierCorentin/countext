@@ -19,10 +19,10 @@ class WatchedLinkRepository extends ServiceEntityRepository
         parent::__construct($registry, WatchedLink::class);
     }
 
-    // /**
-    //  * @return WatchedLink[] Returns an array of WatchedLink objects
-    //  */
-    /*
+    /**
+    * @return WatchedLink[] Returns an array of WatchedLink objects
+    */
+    
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('w')
@@ -34,9 +34,9 @@ class WatchedLinkRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+    
 
-    /*
+    
     public function findOneBySomeField($value): ?WatchedLink
     {
         return $this->createQueryBuilder('w')
@@ -46,5 +46,5 @@ class WatchedLinkRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }
