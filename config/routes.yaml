@@ -38,8 +38,8 @@ watched_link.destroy:
   methods: DELETE
 
 visit.get_range:
-  path: /visits/{uri}/{start}/{end}
-  controller: App\Controler\VisitController::getRange
+  path: /visits/{watchedLinkId}/{start}/{end}/{scale}
+  controller: App\Controller\VisitController::getAggregatedVisits
   methods: GET
 
 index:
