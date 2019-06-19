@@ -66,6 +66,13 @@ class WatchedLinkController extends AbstractController{
             throw $this->createNotFoundException("Unable to find requested watched link");
         }
     }
+
+    public function index(){
+        $repository = $this->getDoctrine()->getRepository(WatchedLink::class);
+        $watchedLinks = $repository->findAll();
+
+        return $this->render("WatchedLink/index.html.twig", ["links" => $watchedLinks]);
+    }
 }
 
 ?>
