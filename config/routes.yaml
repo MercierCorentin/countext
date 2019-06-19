@@ -1,8 +1,49 @@
+home:
+  path: /
+  controller: App\Controller\HomeController::home
+
+watched_link.index:
+  path: /watched_link
+  controller: App\Controller\WatchedLinkController::index
+  methods: GET
+
+watched_link.create:
+  path: /watched_link/create
+  controller: App\Controller\WatchedLinkController::create
+  methods: GET
+
+watched_link.store:
+  path: /watched_link
+  controller: App\Controller\WatchedLinkController::store
+  methods: POST
+
+watched_link.show:
+  path: /watched_link/{uri}
+  controller: App\Controller\WatchedLinkController::show
+  methods: GET
+
+watched_link.edit:
+  path: /watched_link/{uri}/edit
+  controller: App\Controller\WatchedLinkController::edit
+  methods: GET|HEAD
+
+watched_link.update:
+  path: /watched_link/{uri}
+  controller: App\Controller\WatchedLinkController::update
+  methods: PUT|PATCH
+
+watched_link.destroy:
+  path: /watched_link/{uri}
+  controller: App\Controller\WatchedLinkController::destroy
+  methods: DELETE
+
+visit.get_range:
+  path: /visits/{uri}/{start}/{end}
+  controller: App\Controler\VisitController::getRange
+  methods: GET
+
 index:
   path: /{link_id}
   controller: App\Controller\CountRedirectController::countRedirect
   requirements:
-    link_id: '\S+'
-home:
-  path: /
-  controller: App\Controller\HomeController::home
+    link_id: '.{1,}'

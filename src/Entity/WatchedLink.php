@@ -39,7 +39,7 @@ class WatchedLink
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="WatchedLink")
+     * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="watchedLink")
      */
     private $visits;
 
@@ -147,7 +147,7 @@ class WatchedLink
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $newUri = '';
         for ($i = 0; $i < 10; $i++) {
-            $newUri = $characters[rand(0, strlen($characters))];
+            $newUri .= $characters[rand(0, strlen($characters))-1];
         }
         $this->newUri = $newUri;
 
