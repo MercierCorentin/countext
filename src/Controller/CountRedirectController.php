@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\WatchedLink;
 use App\Entity\Visit;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 

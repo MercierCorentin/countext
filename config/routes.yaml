@@ -1,3 +1,8 @@
 index:
   path: /{link_id}
   controller: App\Controller\CountRedirectController::countRedirect
+  requirements:
+    link_id: '\S+'
+home:
+  path: /
+  controller: App\Controller\HomeController::home
