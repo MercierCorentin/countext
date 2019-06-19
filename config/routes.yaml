@@ -1,6 +1,9 @@
 home:
   path: /
   controller: App\Controller\HomeController::home
+about:
+  path: /about
+  controller: App\Controller\HomeController::about
 
 watched_link.index:
   path: /watched_link
@@ -37,7 +40,7 @@ watched_link.destroy:
   controller: App\Controller\WatchedLinkController::destroy
   methods: DELETE
 
-visit.get_range:
+visit.get_aggregated_visits:
   path: /visits/{watchedLinkId}/{start}/{end}/{scale}
   controller: App\Controller\VisitController::getAggregatedVisits
   methods: GET
