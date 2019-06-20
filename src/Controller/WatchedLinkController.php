@@ -13,7 +13,6 @@ class WatchedLinkController extends AbstractController{
     public function create(){
         return $this->render("WatchedLink/create.html.twig");
     }
-
     public function store(Request $request){
         try{
             // Get entity manager
@@ -21,9 +20,6 @@ class WatchedLinkController extends AbstractController{
 
             // Create Watched Link an set properties
             $watchedLink = new WatchedLink;
-            print_r($_POST);
-            echo "<br>";
-            print_r($_GET);
             $watchedLink->setSrcUrl(        $request->request->get("src-url"));
             $watchedLink->setdestUrl(       $request->request->get("dest-url"));
             $watchedLink->setDescription(   $request->request->get("description"));
@@ -69,7 +65,7 @@ class WatchedLinkController extends AbstractController{
 
     public function index(){
         $repository = $this->getDoctrine()->getRepository(WatchedLink::class);
-        $watchedLinks = $repository->findAll();
+        $watchedLinks = $repository->findBy( [], ["id" => "DESC"]);
 
         return $this->render("WatchedLink/index.html.twig", ["links" => $watchedLinks]);
     }

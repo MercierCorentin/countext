@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    See link
+{% endblock %}
+
+{% block body %}
+    <article>
+        <h2>{{ WatchedLink.title }}</h2>
+		<div class="ml-3">
+			<p>{{ WatchedLink.description}} </p>
+			<p>Source URL: <a href="{{ WatchedLink.srcUrl }}">{{ WatchedLink.SrcUrl }}</a></p>
+			<p>Destination URL: <a href="{{ WatchedLink.destUrl }}">{{ WatchedLink.destUrl }}</a> </p>
+			<p>Short URL: <span class="click-to-copy"  data-toggle="tooltip" data-placement="top" title="Click to Copy!">{{app.request.schemeAndHttpHost}}/{{WatchedLink.newUri}}</span></p>
+			<h2>Chart:</h2>
+		</div>
+		<div class="chart-container" style="position: relative; width:95%; margin-left:auto; margin-right:auto;">
+			<canvas id="chart1"></canvas>
+		</div>
+		<br>
+		<label for="start-date">From</label>
+		<input type="date" id="start-date" class="form-control">
+		<br>
+
+		<label for="end-date">To</label>
+		<input type="date" id="end-date" class="form-control">
+		<br>
+
+		<label for="scale">Scale</label>
+		<select name="scale" id="scale" class="form-control">
+			<option value="Y">Year</option>
+			<option value="m" selected>Month</option>
+			<option value="d">Day</option>
+			<option value="H">Hour</option>
+			<option value="i">Minute</option>
+			<option value="s">Second</option>
+		</select>
+		<br>
+
+		<label for="type">Chart type</label>
+		<select id="type" class="form-control">
+			<option value="line">Line</option>
+			<option value="bar">Bar</option>
+		</select>
+		<br>
+
+		<button id="update" class="form-control">Update</button>
+		<br>
+
+
+    </article>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+	<script src="{{ asset("js/chartUtils.js") }}"></script>
+	<script src="{{ asset("js/chartInit.js") }}"></script>
+	
+	<script>	
+		$(function(){
+			// Get current watched link ID
+			var watchedLinkId = {{ WatchedLink.id }};
+
+			// Create dates
+			initStartDate = moment().subtract(6, "months").format(dateFormat);
+			initEndDate   = moment().add(1, "months").format(dateFormat);
+			
+			// Display right data on chart
+			getData(watchedLinkId, initStartDate , initEndDate, "m");
+			
+			// Filling inputs
+			$("#start-date").val(initStartDate);
+			$("#end-date").val(initEndDate);
+
+			// //
+			// Events
+			// //
+			$('#update').on('click', function() {
+
+				// Update type
+				var type = document.getElementById('type').value;
+				chart.config.data.datasets[0].type = type;
+				chart.update();
+
+				// Update data
+				startDate 	= $("#start-date").val();
+				endDate		= $("#end-date").val();
+				scale 		= $("#scale").val();
+				linkId 		= watchedLinkId;
+				getData(linkId, startDate, endDate, scale);
+			});
+
+			// Click to copy event
+			$(".click-to-copy").on('click', function(){
+				copyStringToClipboard($(this).text());	
+			});
+		});
+	</script>
+{% endblock %}
+

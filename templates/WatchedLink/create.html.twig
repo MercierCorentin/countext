@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Add link
+{% endblock %}
+
+{% block body %}
+<article>
+    <h2>Add new link</h2>
+    <form action="{{ path("watched_link.store") }}" method="post">
+        <label for="title">Title</label>
+        <input type="text" name="title" class="form-control">
+        <br>
+
+        <label for="description">Description</label>
+        <textarea name="description" cols="30" rows="10" class="form-control"></textarea>
+        <br>
+
+        <label for="src-url">Source URL</label>
+        <input type="url" name="src-url" class="form-control">
+        <br>
+
+        <label for="dest-url">Detination URL</label>
+        <input type="url" name="dest-url" class="form-control">
+        <br>
+
+        <input type="submit" value="Send"class="form-control">
+
+        </form>
+</article>
+{% endblock %}
