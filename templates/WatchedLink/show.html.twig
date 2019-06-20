@@ -1,22 +1,180 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Welcome to Symfony!</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
-    <body>
+{% extends 'base.html.twig' %}
 
+{% block title %}
+    See link
+{% endblock %}
+
+{% block body %}
+    <article>
         <h2>{{ WatchedLink.title }}</h2>
-        <p>{{ WatchedLink.description}} </p>
-        <!-- {% for entry in visits %}
-            <h2>{{ entry.time|date('Y-m-d') }}</h2>
-        {% endfor %} -->
+		<p>{{ WatchedLink.description}} </p>
+		<p>Short URL: {{app.request.schemeAndHttpHost}}/{{WatchedLink.newUri}}</p>
+	<h2>Chart:</h2>
+	<div style="width:1000px">
+		<canvas id="chart1"></canvas>
+	</div>
+	<label for="start-date">From</label>
+	<input type="date" id="start-date" class="form-control">
+	<br>
+
+	<label for="end-date">To</label>
+	<input type="date" id="end-date" class="form-control">
+	<br>
+
+	<label for="scale">Scale</label>
+	<select name="scale" id="scale" class="form-control">
+		<option value="Y">Year</option>
+		<option value="m" selected>Month</option>
+		<option value="d">Day</option>
+		<option value="H">Hour</option>
+		<option value="i">Minute</option>
+		<option value="s">Second</option>
+	</select>
+	<br>
+
+	<label for="type">Chart type</label>
+	<select id="type" class="form-control">
+		<option value="line">Line</option>
+		<option value="bar">Bar</option>
+	</select>
+	<br>
+
+	<button id="update" class="form-control">Update</button>
+	<br>
 
 
-        <div id="chartContainer" style="height: 300px; width: 100%;">
-        </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-</html>
+    </article>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script src="{{ asset("js/utils.js") }}"></script>
+	
+	<script>
+        var scaleToMoment = {'Y':'year', 'm':'month', 'd':'day', 'H':'hour', 'i':'minute', 's':'second'};
+		var dateFormat = 'YYYY-MM-DD';
+		var data = [];
+		var watchedLinkId = {{ WatchedLink.id }};
+
+		// TO DO: responsive chart
+		var ctx = document.getElementById('chart1').getContext('2d');
+		ctx.canvas.width = 1000;
+		ctx.canvas.height = 300;
+
+		var color = Chart.helpers.color;
+		var cfg = {
+			type: 'bar',
+			data: {
+				datasets: [{
+					label: 'Visits',
+					backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+					borderColor: window.chartColors.red,
+					data: data,
+					type: 'line',
+					pointRadius: 0,
+					fill: false,
+					lineTension: 0,
+					borderWidth: 2
+				}]
+			},
+			options: {
+				scales: {
+					xAxes: [{
+						type: 'time',
+						distribution: 'series',
+						ticks: {
+							source: 'data',
+							autoSkip: true
+						}
+					}],
+					yAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: 'Visits'
+						}
+					}]
+				},
+				tooltips: {
+					intersect: false,
+					mode: 'index',
+					callbacks: {
+						label: function(tooltipItem, myData) {
+							console.log(tooltipItem, myData);
+							var label = myData.datasets[tooltipItem.datasetIndex].label || '';
+							if (label) {
+								label += ': ';
+							}
+							label += myData.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].y;
+							return label;
+						}
+					}
+				}
+			}
+		};
+
+		var chart = new Chart(ctx, cfg);
+
+	// Look for a datetie in data Json array.
+    function getVisits(data, datetime){
+        for(var x in data){
+            if(data[x].datetime && data[x].datetime == datetime) return data[x].visits;
+        }
+        return 0;
+  
+    }
+
+	// Get Data from the server and refresh chart
+    function getData(linkId, startDateTime, endDateTime, scale){
+        $.ajax({
+            url: "/visits/" + linkId + "/" + startDateTime + "/" + endDateTime + "/" + scale,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data, state){
+                chartData = [];
+                chartDate = moment(startDateTime, dateFormat);
+
+                while(chartDate.isBefore(endDateTime, scaleToMoment[scale])){
+					// 0 if not found. Else number of visits 
+                    valueToPush = getVisits(data, chartDate.format('YYYY:MM'))
+                    chartData.push({
+                        t: chartDate.valueOf(),
+                        y: valueToPush
+                    });
+					// Add 1 unity of the scale
+                    chartDate = chartDate.clone().add(1, scaleToMoment[scale]+"s");
+                }
+
+				// Affecting new data to chart data
+                chart.data.datasets[0].data = chartData;
+				// Refresh view of chart
+                chart.update();
+            },
+            error : function(result, state, error){
+                console.log(result.responseText);
+                console.log(state);
+                console.log(error);
+            }
+        });
+    }
+	initStartDate = moment().subtract(6, "months").format(dateFormat);
+	initEndDate   = moment().add(1, "months").format(dateFormat);
+    getData(watchedLinkId, initStartDate , initEndDate, "m");
+	$("#start-date").val(initStartDate);
+	$("#end-date").val(initEndDate);
+
+	document.getElementById('update').addEventListener('click', function() {
+		var type = document.getElementById('type').value;
+		chart.config.data.datasets[0].type = type;
+		chart.update();
+		startDate 	= $("#start-date").val();
+		endDate		= $("#end-date").val();
+		scale 		= $("#scale").val();
+		linkId 		= watchedLinkId;
+		getData(linkId, startDate, endDate, scale);
+	});
+	</script>
+{% endblock %}
+

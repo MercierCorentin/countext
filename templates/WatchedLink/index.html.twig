@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    {% foreach link in links %}
-    <article>
+    {% for link in links %}
+    <article onclick='document.location.href="/watched_link/{{link.newUri}}"'>
         <h3>{{link.title}}</h3>
+        <p>Short URL: {{app.request.schemeAndHttpHost}}/{{link.newUri}}</p>
         <p>Description</p>
         <p>{{link.description}}</p>
-        <p>Source URL: {{ link.srcUrl }}</p>
-        <p>Destination URL: {{ link.dstUrl }}</p>
+        <p>Source URL: <a href="{{ link.srcUrl }}">{{ link.srcUrl }}</a></p>
+        <p>Destination URL: <a href="{{ link.destUrl }}">{{ link.destUrl }}</a></p>
     </article>
-    {% endforeach %}
+    {% endfor %}
 {% endblock %}
