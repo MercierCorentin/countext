@@ -50,3 +50,10 @@ article{
 	margin-right:auto;
 	width:95%;
 }
+button{
+    padding:10px !important;
+    background-color: #a78852 !important;
+    width:200px;
+    margin:25px;
+    font-size: 1.5em !important;
+}
