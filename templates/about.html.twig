@@ -7,5 +7,52 @@
 {% block body %}
     <article>
         <h1>About</h1>
+        <h2>Introduction</h2>
+            <p>
+                This project was created because we wanted evaluate the impact of a website page without touching anything but the link. <br>
+                After searching on the web, we didn't find anything suitable, free, and without any data analysis. So we decided to create it, generalize it, share and open it.
+            </p>
+        <h2>Open Source</h2>
+            <h3>Participate</h3>
+                <p>
+                    As this project is open source, feel free to report bugs, ask for enhancement, submit your own piece of code are more.<br>
+                    Just follow <a href="https://github.com/MercierCorentin/countext/issues/new">this link</a>.
+                    For users who are not use to GitHub, after having followed the link, add a label (on the left of the screen). The label will tell us if it's a bug report, an enhancement, a question or something else.
+                </p>
+            <h3>Used components</h3>
+            <ul>
+                <li>Charts: <a href="https://chartjs.org">Chart.js</a></li>
+                <li>Time object manipulation: <a href="https://momentjs.com/">Moment.js</a></li>
+            </ul>
+            <h3>Language</h3>
+            <p>
+                We are non-native english speakers/writers. If you see a spelling mistake, you can report follow the link in Participate two sections higher and put the "spell" label. <br>
+                For translations, french is coming. <br>
+                If you want another translation, it is possible but you'll probably have to help us.  
+            </p>
+        <h2>Usage</h2>
+            <p>
+                This application aims to be really easy to use. <br>
+            </p>
+            <h3>Watch a new link</h3>
+            <p>
+                Just fill the form <a href="{{path("watched_link.create")}}">here</a>. (Or click on New link in the navigation bar)
+            </p>
+            <h3>See visits chart</h3>
+            <p>
+                Go here or click on All links in the navigation bar, find your link and click on the whole element. <br>
+                A search bar is coming soon.
+            </p>
+            <h3>Edit link</h3>
+            <p>
+                As we want an account-less service, something is coming soon but now it is not possible to edit your links.
+                If you really want it, ask. (See Open Source section).
+            </p>
+        <h2>Charts</h2>
+            <p>
+                Once you are on your link's page, you have can changes the values in the form underneath the chart. <br>
+                To apply changes, click on the button "Update"
+            </p>
+
     </article>
 {% endblock %}

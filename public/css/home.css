@@ -50,7 +50,7 @@ article{
 	margin-right:auto;
 	width:95%;
 }
-button{
+.home-page-button{
     padding:10px !important;
     background-color: #a78852 !important;
     width:200px;
