@@ -57,3 +57,10 @@ article{
     margin:25px;
     font-size: 1.5em !important;
 }
+
+article .level-2-wrapper{
+    margin-left: 25px;
+}
+article .level-3-wrapper{
+    margin-left: 50px;
+}
