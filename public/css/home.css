@@ -50,6 +50,23 @@ article{
 	margin-right:auto;
 	width:95%;
 }
+.search-bar{
+    background: transparent;
+    border-radius: 0px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px #6c757d solid;
+    width: 100%
+}
+.search-bar:focus{
+    outline: none;
+}
+.search-bar-container{
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+}
 .home-page-button{
     padding:10px !important;
     background-color: #a78852 !important;

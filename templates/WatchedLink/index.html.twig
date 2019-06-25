@@ -5,7 +5,14 @@
 {% endblock %}
 
 {% block body %}
+    
+    <!-- Search bar -->
+    <div class="md-form mt-5 search-bar-container">
+      <input class="search-bar" type="text" placeholder="Search" aria-label="Search">
+    </div>
+
     {% for link in links %}
+
     <article onclick='document.location.href="/watched_link/{{link.newUri}}"'>
         <h3>{{link.title}}</h3>
         <p>Short URL: {{app.request.schemeAndHttpHost}}/{{link.newUri}}</p>
