@@ -14,6 +14,48 @@
                     After searching on the web, we didn't find anything suitable, free, and without any data analysis. So we decided to create a solution and to generalize, share and open it.
                 </p>
             </div>
+
+        <h2>Usage</h2>
+            <div class="level-2-wrapper">
+                <p>
+                    This application aims to be really easy to use. <br>
+                </p>
+                <h3>How it works</h3>
+                    <div class="level-3-wrapper">
+                        <p>
+                            A watched link is a url that points to an online ressource you want to share and whose number of visits (from where you shared it) you want to know. Ex: https://destination.example.com/my-ressource 
+                        </p>
+                    </div>
+                <h3>Watch a new link</h3>
+                    <div class="level-3-wrapper">
+                        <p>
+                            Just fill the form <a href="{{path("watched_link.create")}}">here</a>. (Or click on New link in the navigation bar)
+                        </p>
+                    </div>
+                <h3>See visits chart</h3>
+                    <div class="level-3-wrapper">
+                        <p>
+                            Go <a href="{{ path("watched_link.index") }}">here</a> or click on "All links" in the navigation bar, find your link and click on the whole element. <br>
+                            A search bar is coming soon.
+                        </p>
+                    </div>
+                <h3>Edit link</h3>
+                    <div class="level-3-wrapper">
+                        <p>
+                            As we want an account-free service, something is coming soon but now it is not possible to edit your links.
+                            If you really want it, ask. (See Open Source section).
+                        </p>
+                    </div>
+            </div>
+
+        <h2>Charts</h2>
+            <div class="level-2-wrapper">
+                <p>
+                    Once you are on your link's page, you can change the values in the form underneath the chart. <br>
+                    To apply changes, click on the button "Update".
+                </p>
+            </div>
+
         <h2>Open Source</h2>
             <div class="level-2-wrapper">
                 <h3>Participate</h3>
@@ -40,39 +82,5 @@
                         </p>
                     </div>
             </div>
-        <h2>Usage</h2>
-            <div class="level-2-wrapper">
-                <p>
-                    This application aims to be really easy to use. <br>
-                </p>
-                <h3>Watch a new link</h3>
-                    <div class="level-3-wrapper">
-                        <p>
-                            Just fill the form <a href="{{path("watched_link.create")}}">here</a>. (Or click on New link in the navigation bar)
-                        </p>
-                    </div>
-                <h3>See visits chart</h3>
-                    <div class="level-3-wrapper">
-                        <p>
-                            Go <a href="{{ path("watched_link.index") }}">here</a> or click on "All links" in the navigation bar, find your link and click on the whole element. <br>
-                            A search bar is coming soon.
-                        </p>
-                    </div>
-                <h3>Edit link</h3>
-                    <div class="level-3-wrapper">
-                        <p>
-                            As we want an account-free service, something is coming soon but now it is not possible to edit your links.
-                            If you really want it, ask. (See Open Source section).
-                        </p>
-                    </div>
-            </div>
-        <h2>Charts</h2>
-            <div class="level-2-wrapper">
-                <p>
-                    Once you are on your link's page, you can change the values in the form underneath the chart. <br>
-                    To apply changes, click on the button "Update".
-                </p>
-            </div>
-
     </article>
 {% endblock %}
