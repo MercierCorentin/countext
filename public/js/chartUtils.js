@@ -1,3 +1,4 @@
+// Colors
 window.chartColors = {
 	red: 'rgb(255, 99, 132)',
 	orange: 'rgb(255, 159, 64)',
@@ -8,6 +9,7 @@ window.chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
+// Function that transform a php scale (Y, m, d, H, i, s) to the Moment.js format used in this application
 function scaleToMomentFormat(scale){
     format = "";
     switch (scale) {
@@ -31,7 +33,7 @@ function scaleToMomentFormat(scale){
     return format;
 }
 
-// Look for a datetie in data Json array.
+// Look for a datetime in data Json array.
 function getVisits(data, datetime){
     for(var x in data){
         if(data[x].datetime && data[x].datetime == datetime) return data[x].visits;

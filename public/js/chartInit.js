@@ -85,6 +85,7 @@ function getData(linkId, startDateTime, endDateTime, scale){
             chart.update();
         },
         error : function(result, state, error){
+            // TO DO: display error message to user
             console.log(result.responseText);
             console.log(state);
             console.log(error);
