@@ -1,9 +1,14 @@
+// Requirements
+const $ = require('jquery');
+require('popper.js');
+require('bootstrap');
+var stringSimilarity = require('string-similarity');
+
 $(function(){
     $(".search-bar").on('input', function(){
         
         // declare and init vars
-        var searchValue = $(this).val()
-        var titles = [];
+        var searchValue = $(this).val();
 
         // Search value transformation
         searchValue = searchValue.toLowerCase();
@@ -18,8 +23,16 @@ $(function(){
             var currentValue = $(this).html();
             currentValue = currentValue.toLowerCase();
 
-            if( currentValue === searchValue){
+            var similarity = stringSimilarity.compareTwoStrings(currentValue, searchValue);
+            
+            if( similarity > 0.75 )
+            {
                 JQueryTitles.parent().hide();
+                $(this).parent().show();
+                return false;
+            }
+            else
+            {
                 $(this).parent().show();
             }
         });
