@@ -8,7 +8,6 @@ import * as chartInit  from './chartInit';
 
 $(function(){
     // Create chart
-    var data = [];
     var chart = new Chart(chartInit.ctx, chartInit.cfg);
 
 
