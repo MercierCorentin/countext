@@ -1,5 +1,6 @@
 // Requirements
-const $ = require('jquery');
+import $ from 'jquery';
+
 require('popper.js');
 require('bootstrap');
 var stringSimilarity = require('string-similarity');
@@ -25,7 +26,7 @@ $(function(){
 
             var similarity = stringSimilarity.compareTwoStrings(currentValue, searchValue);
             
-            if( similarity > 0.75 )
+            if( similarity >= 0.75 )
             {
                 JQueryTitles.parent().hide();
                 $(this).parent().show();
