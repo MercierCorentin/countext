@@ -47,7 +47,7 @@ If you want another translation, it is possible but you'll probably have to help
 
 ### What's next?
 
-- Search bar in "All links" tab
-- HTTP_REFFERER checking to avoid requests in the url bar of a browser (It is not planned to avoit refere spoofing)
-- Link editing and deleting based on email adress (Still account less)
-- GDPR 
+- [x] Search bar in "All links" tab
+- [ ] HTTP_REFFERER checking to avoid requests in the url bar of a browser (It is not planned to avoit refere spoofing)
+- [ ] Link editing and deleting based on email adress (Still account less)
+- [ ] GDPR 
