@@ -24,6 +24,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
+    .addStyleEntry('base', './assets/css/base.scss')
     .addEntry('watchedLink', './assets/js/watchedLink/index.js')
     .addEntry('watchedLink/show', './assets/js/watchedLink/show.js')
     //.addEntry('page1', './assets/js/page1.js')
@@ -45,6 +46,7 @@ Encore
      */
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
+    .enableSassLoader()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
