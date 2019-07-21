@@ -53,8 +53,8 @@ module.exports.copyStringToClipboard = function(str) {
 
 
 // Get Data from the server and refresh chart
-module.exports.getData = function(linkId, startDateTime, endDateTime, scale, chart){
-    $.ajax({
+module.exports.getDataAjaxObject = function(linkId, startDateTime, endDateTime, scale, chart){
+    return {
         url: "/visits/" + linkId + "/" + startDateTime.format(this.dateFormat) + "/" + endDateTime + "/" + scale,
         type: 'GET',
         dataType: 'json',
@@ -76,7 +76,7 @@ module.exports.getData = function(linkId, startDateTime, endDateTime, scale, cha
             // Affecting new data to chart data
             chart.data.datasets[0].data = chartData;
             // Refresh view of chart
-            
+
             chart.update();
         },
         error : function(result, state, error){
@@ -85,5 +85,5 @@ module.exports.getData = function(linkId, startDateTime, endDateTime, scale, cha
             console.log(state);
             console.log(error);
         }
-    });
-}
+    };
+};

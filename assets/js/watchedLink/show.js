@@ -17,10 +17,11 @@ $(function(){
     // Create dates
     var initStartDate = moment().subtract(3, "months");
     var initEndDate   = moment().add(1, "months").format(chartUtils.dateFormat);
-    console.log(initStartDate);
     
     // Display right data on chart
-    chartUtils.getData(watchedLinkId, initStartDate , initEndDate, "m", chart);
+    $.ajax(
+        chartUtils.getDataAjaxObject(watchedLinkId, initStartDate , initEndDate, "m", chart)
+    );
 
     
     // Filling inputs
@@ -42,7 +43,9 @@ $(function(){
         var endDate		= $("#end-date").val();
         var scale 		= $("#scale").val();
         var linkId 		= watchedLinkId;
-        chartUtils.getData(linkId, moment(startDate, chartUtils.dateFormat) , endDate, scale, chart);
+        $.ajax(
+            chartUtils.getDataAjaxObject(linkId, moment(startDate, chartUtils.dateFormat) , endDate, scale, chart)
+        );
     });
 
     // Click to copy event
