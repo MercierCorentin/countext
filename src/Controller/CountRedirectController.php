@@ -5,11 +5,12 @@ namespace App\Controller;
 use App\Entity\WatchedLink;
 use App\Entity\Visit;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 
 class CountRedirectController extends AbstractController{
 
-    public function countRedirect($link_id){
+    public function countRedirect(SymfonyRequest $request, $link_id){
 
         $repository = $this->getDoctrine()->getRepository(WatchedLink::class);
         $watchedLink = $repository->findOneBy(["newUri" => $link_id]);
@@ -24,7 +25,24 @@ class CountRedirectController extends AbstractController{
             
             $entityManager->persist($visit);
             $entityManager->flush();
-            return $this->redirect($watchedLink->getdestURL());
+
+            // Get query parameters 
+            $paramsNumber = count($request->query->all());
+            $params = '';
+            if($paramsNumber > 0){
+                $params = "?";
+                $i = 1;
+                print_r($request->query->all());
+                echo("<br>");
+                foreach ($request->query->all() as $key => $param) {
+                    $params .= $key . "=" . $param;
+                    if($i != $paramsNumber){
+                        $params .= "&";
+                    }
+                    $i++;
+                }
+            }
+            return $this->redirect($watchedLink->getdestURL().$params);
         }else{
             throw $this->createNotFoundException("The requested link does not exist.");
         }
